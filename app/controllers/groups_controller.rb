@@ -7,7 +7,7 @@ class GroupsController < ApplicationController
   end
   def show
     @group = Group.find(params[:id])
-    @posts = @group.posts.recent
+    @posts = @group.posts.recent.paginate(:page => params[:page], :per_page => 5)
   end
 
   def edit
@@ -38,6 +38,7 @@ class GroupsController < ApplicationController
   def destroy
       @group.destroy
        redirect_to groups_path, alert: "Group deleted"
+
   end
 
   def join
